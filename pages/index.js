@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
 const HomePage = () => {
-  const [darkTheme, setDarkTheme] = useState(null);
+  const [darkTheme, setDarkTheme] = useState(undefined);
 
   const handleToggle = (event) => {
     setDarkTheme(event.target.checked);
   };
 
   useEffect(() => {
-    if (darkTheme !== null) {
+    if (darkTheme !== undefined) {
       if (darkTheme) {
         // Set value of  darkmode to dark
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -27,7 +27,7 @@ const HomePage = () => {
       '--initial-color-mode'
     );
     // Set initial darkmode to light
-    setDarkTheme(initialColorValue === 'light');
+    setDarkTheme(initialColorValue === 'dark');
   }, []);
 
   return (
@@ -36,16 +36,18 @@ const HomePage = () => {
         <nav>
           <div className="mybrand">My Personal Site</div>
           <div>
-            <form action="#">
-              <label className="switch">
-                <input
-                  type="checkbox"
-                  checked={darkTheme}
-                  onChange={handleToggle}
-                />
-                <span className="slider"></span>
-              </label>
-            </form>
+            {darkTheme !== undefined && (
+              <form action="#">
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={darkTheme}
+                    onChange={handleToggle}
+                  />
+                  <span className="slider"></span>
+                </label>
+              </form>
+            )}
           </div>
         </nav>
         <section>
